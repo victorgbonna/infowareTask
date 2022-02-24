@@ -57,7 +57,7 @@ router.post('/add',guestOnly, async (req, res) => {
 })
 
 //get user
-router.get('/:id',requireCurrentUser, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try{
     const user= await getUser(req.params.id)
     if(!user){
