@@ -47,7 +47,8 @@ const requireCurrentUser=(req, res, next)=>{
             return res.json({error:'You are not logged in'})
         }
         console.log(decodedToken)
-        if(decodedToken.id!=req.params.id){
+        const userId= req.params.id || req.body.orderedUser
+        if(decodedToken.id!=userId){
             // throw 'You are forbidden'
             return res.status(403).json({error:'You are forbidden'})
         }

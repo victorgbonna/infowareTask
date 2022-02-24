@@ -5,7 +5,7 @@ const { requireAdmin, requireAuth, guestOnly, requireCurrentUser } = require('..
 const router = express.Router()
 
 //add order
-router.post('/add',requireAuth, async (req, res) => {
+router.post('/add',requireCurrentUser, async (req, res) => {
     try{
       const {orderedUser, orderedProduct}= req.body
       const order= await addOrder({userId:orderedUser, productId:orderedProduct})
@@ -24,7 +24,7 @@ router.post('/add',requireAuth, async (req, res) => {
 })
 
 //get order
-router.get('/:id',requireAuth, async (req, res) => {
+router.get('/:id',requireCurrentUser, async (req, res) => {
     try{
       const order= await getOrder(req.params.id)
       return res.json({order})

@@ -15,7 +15,7 @@ router.post('/login', guestOnly, async (req, res) => {
     }
     catch(e){
       console.log(e)
-      return res.json({error:'return json'})
+      return res.json({error:e})
   }
 })
 //logout user route
