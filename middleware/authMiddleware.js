@@ -58,12 +58,7 @@ const requireCurrentUser=(req, res, next)=>{
 const guestOnly=(req,res,next)=>{
     const token=req.cookies.jwt;
     if (token){
-        jwt.verify(token, config.secretToken, (err, decodedToken)=>{
-            if(decodedToken){
-                // throw 'you are already logged in'
-                return res.json({'message':'you are already logged in'})
-            }
-        })
+        return res.json({'message':'you are already logged in'})
     }
     return next()
 }
