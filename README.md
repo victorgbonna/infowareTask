@@ -41,19 +41,31 @@ This is an one seller ecommerce API where admin users can add products while the
 
 ### There were applied below-
 #### User routes- 
-- post /api/user/add- for adding user(gO)
-##### This will . Req.body should be like 
+- post /api/user/add- for adding user(gO). Req.body should be like 
 ```javascript
 {
   name:string,
-  isAdmin:boolean,
+  phone:string,
   email:email regex,
   password:string
-  gender:any one of ['male' 'female','others']
 }
 ``` 
-- post /api/user/add/admin- for adding admin
-- post /api/user/login- for login(gO)
+- post /api/user/add/admin- for adding admin. Req.body should be like 
+```javascript
+{
+  name:string,
+  phone:string,
+  email:email regex,
+  password:string
+}
+```
+- post /api/user/login- for login(gO). Req.body should be like 
+```javascript
+{
+  email:email regex,
+  password:string
+}
+```
 - get /api/user/logout- for logout(rAu)
 - get /api/user/:id - get user by id as request params (rC)
 - get /api/user/all/users- get users. it returns everything by default but you can set the query with condition e.g /?name=victorogbonna.(rA)
@@ -61,104 +73,30 @@ This is an one seller ecommerce API where admin users can add products while the
 - delete /api/user/:id- delete user (rC)
 
 #### Product route
-- post /api/product/add- for adding product (rA)
+- post /api/product/add- for adding product (rA). Req.body should be like 
+```javascript
+{
+  name:string,
+  color: either 'white', 'cream', 'black',
+  size: either 'XL', 'all', 'L'
+}
+```
 - get /api/product/:id - get product by id as request params
 - get /api/product/all/products- get products. it returns everything by default but you can set the query with condition e.g /?color=red.
 
 #### Order route
-- post /api/order/add- for adding order (rC) 
+- post /api/order/add- for adding order (rC) . Req.body should be like 
+```javascript
+{
+  orderedProduct:, object id for product
+  orderedUser: object id for user
+}
+```
 - get /api/order/:id - get order by id as request params (rC)
 - get /api/order/all/orders- get orders (rAu)
 - get /api/user/all/orders/user/:id- get orders by user id as request params.(rC)
 - get /api/user/all/orders/product/:id- get orders by product id as request params.(rAu)
 
-
-### Middlewares. There were 4 middleware in this application
-- requireAuth- for anthenticated users only
-- requireGuest-for non authenticated users only
-- requireCurrentUser-for a specific authenticated user
-- requireInstructor- for only instructor
-
-
-### API routes for user services, for the site link, replace the http://localhost:400/ with https://infowaretask.herokuapp.com/
-
-#### http://localhost:400/api/user/add (requireGuest) - post call to register user  
-##### This will . Req.body should be like 
-```javascript
-{
-  name:string,
-  isAdmin:boolean,
-  email:email regex,
-  password:string
-  gender:any one of ['male' 'female','others']
-}
-```
-#### http://localhost:400/api/user/login (requireGuest) - post call to login user  
-##### This will . Req.body should be like 
-```javascript
-{
-  email:,
-  password:
-}
-```
-#### http://localhost:400/api/user/logout (requireAuth) - get call to logout user.  
-
-#### http://localhost:400/api/user/getUser/:userId - get call to fetch user details, password excluded.
-
-#### http://localhost:400/api/user/getUsers/all- get call to fetch all user details, password excluded.
-
-#### http://localhost:400/api/user/getUser/:userId/classes- get call to fetch user classes.
-
-#### http://localhost:400/api/user/deleteUser/:userId(requireCurrentUser)- delete call to delete user.
-
-#### http://localhost:400/api/user/deleteUser/:userId(requireCurrentUser)- delete call to delete user.
-#### N/B: if an instructor deletes account, all the classes created by the instructor gets deleted too, so as to avoid db query error.
-
-### API routes for class services
-
-#### http://localhost:400/api/class/create(requireInstructor) -post call to create a class. 
-##### This will . Req.body should be like 
-```javascript
-{
-  name:nameofclass,
-  admin:objectid
-}
-```
-#### http://localhost:400/api/class/join/classId(requireCurrentUser) -post call to create a class. 
-##### This will . Req.body should be like 
-```javascript
-{
-  "userid":useridtoadd
-}
-```
-#### http://localhost:400/api/class/getClass/:classId- get call to fetch a class.
-#### http://localhost:400/api/class/getClass/:classId/users- get call to fetch users in a class.
-#### http://localhost:400/api/class/getClasses/all- get call to fetch all classes.
-
-#### http://localhost:400/api/class/leave/:classId(requireCurrentUser)- put call to leave class.
-#### Req.body should be like 
-```javascript
-{
-  "userid":useridtoleave
-}
-``` 
-#### http://localhost:400/api/class/leave/:classId(removeUser/:userId(requireInstructor)- put call to for an admin to remove a user.
-#### Req.body should be like 
-```javascript
-{
-  "adminId":adminId
-}
-``` 
-#### N/B: An admin cannot leave their class, rather delete the class instead. Only admin to the class can make perform this api operation.
-
-#### http://localhost:400/api/class/delete/:classId(requireInstructor)- delete call to delete class.
-#### Req.body should be like 
-```javascript
-{
-  "adminId":adminId
-}
-``` 
-#### N/B: An admin cannot leave their class, rather delete the class instead. Only admin to the class can make perform this api operation.
 
 ### Contact 
 - Email- victorgbonna@gmail.com
